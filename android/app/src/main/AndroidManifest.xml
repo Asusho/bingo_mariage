@@ -2,7 +2,7 @@
     <application
         android:label="Bingo Mariage"
         android:name="${applicationName}"
-        android:icon="@drawable/bingo_mariage_launcher">
+        android:icon="@drawable/corgi">
         <activity
             android:name=".MainActivity"
             android:exported="true"
