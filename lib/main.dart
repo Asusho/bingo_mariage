@@ -9,6 +9,7 @@ void main() {
 const _chestnut = Color(0xFF573323);
 const _rust = Color(0xFF9B4B2F);
 const _cream = Color(0xFFFBF4E9);
+const _lightcream =  Color(0xFFFFFCF6);
 const _amber = Color(0xFFE5A943);
 const _ink = Color(0xFF34271F);
 const _muted = Color(0xFF8A786A);
@@ -69,7 +70,7 @@ class _BingoPageState extends State<BingoPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFFFFFCF6),
+        backgroundColor: _cream,
         title: const Text('Nouvelle partie ?'),
         content: const Text(
           'Le tirage actuel sera effacé. Voulez-vous vraiment recommencer ?',
@@ -205,7 +206,7 @@ class _BingoPageState extends State<BingoPage> {
           const Text(
             'NUMÉRO TIRÉ',
             style: TextStyle(
-              color: Color(0xFFE7C9AD),
+              color: _cream,
               fontSize: 11,
               fontWeight: FontWeight.w800,
               letterSpacing: 2,
@@ -224,13 +225,6 @@ class _BingoPageState extends State<BingoPage> {
                 color: _cream,
                 shape: BoxShape.circle,
                 border: Border.all(color: _amber, width: 5),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x33000000),
-                    blurRadius: 16,
-                    offset: Offset(0, 7),
-                  ),
-                ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -240,9 +234,7 @@ class _BingoPageState extends State<BingoPage> {
                     style: const TextStyle(
                       color: _ink,
                       fontSize: 54,
-                      fontWeight: FontWeight.w900,
-                      height: 1,
-                      letterSpacing: -2,
+                      fontWeight: FontWeight.w900
                     ),
                   ),
                 ],
@@ -274,7 +266,7 @@ class _BingoPageState extends State<BingoPage> {
               style: FilledButton.styleFrom(
                 backgroundColor: _amber,
                 foregroundColor: _chestnut,
-                disabledBackgroundColor: const Color(0xFFAA927B),
+                disabledBackgroundColor: _muted,
                 disabledForegroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -297,9 +289,9 @@ class _BingoPageState extends State<BingoPage> {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 15, 16, 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFCF6),
+        color: _lightcream,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFECE0D0)),
+        border: Border.all(color: _chestnut),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,7 +336,7 @@ class _BingoPageState extends State<BingoPage> {
               color: _chestnut,
               fontSize: 17,
               fontWeight: FontWeight.w900,
-              letterSpacing: 2.2,
+              letterSpacing: 4,
             ),
           ),
         ),
@@ -354,7 +346,7 @@ class _BingoPageState extends State<BingoPage> {
               width: 9,
               height: 9,
               decoration: const BoxDecoration(
-                color: Color(0xFFE2D9CE),
+                color: _rust,
                 shape: BoxShape.circle,
               ),
             ),
@@ -373,9 +365,9 @@ class _BingoPageState extends State<BingoPage> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFCF6),
+        color: _lightcream,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFECE0D0)),
+        border: Border.all(color: _chestnut),
       ),
       child: Column(
         children: [
@@ -481,7 +473,7 @@ class _RecentDrawQueueState extends State<_RecentDrawQueue> {
     final removedNumber = _items.removeAt(index);
     _listKey.currentState?.removeItem(
       index,
-      (context, animation) => _buildQueueItem(
+          (context, animation) => _buildQueueItem(
         removedNumber,
         animation,
         itemWidth: _itemWidth,
@@ -492,11 +484,11 @@ class _RecentDrawQueueState extends State<_RecentDrawQueue> {
   }
 
   Widget _buildQueueItem(
-    int number,
-    Animation<double> animation, {
-    required double itemWidth,
-    bool isExiting = false,
-  }) {
+      int number,
+      Animation<double> animation, {
+        required double itemWidth,
+        bool isExiting = false,
+      }) {
     final curvedAnimation = CurvedAnimation(
       parent: animation,
       curve: Curves.easeInOutCubic,
@@ -573,16 +565,17 @@ class _HistoryChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
       decoration: BoxDecoration(
-        color: isLatest ? _rust : const Color(0xFFF4E8D8),
-        borderRadius: BorderRadius.circular(11),
+        color: isLatest ? _amber : _cream,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color:  _chestnut),
       ),
       child: Text(
         label,
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: isLatest ? Colors.white : _chestnut,
+          color: isLatest ? _cream : _chestnut,
           fontSize: 12,
           fontWeight: FontWeight.w800,
         ),
@@ -604,24 +597,22 @@ class _NumberCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isDrawn ? const Color(0xFFE2D9CE) : const Color(0xFFF7F0E5);
+    final color = isDrawn ? _rust : _cream;
     return Container(
       key: ValueKey('number-$number'),
       height: 34,
       decoration: BoxDecoration(
         color: isLatest ? _amber : color,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: isLatest ? _amber : const Color(0xFFEDE2D3)),
+        border: Border.all(color:  _chestnut),
       ),
       alignment: Alignment.center,
       child: Text(
         number.toString(),
         style: TextStyle(
-          color: isDrawn ? const Color(0xFF9A8D80) : _ink,
+          color: isDrawn? _cream : _chestnut,
           fontSize: 12,
           fontWeight: isLatest ? FontWeight.w900 : FontWeight.w600,
-          decoration: isDrawn && !isLatest ? TextDecoration.lineThrough : null,
-          decorationColor: const Color(0xFF9A8D80),
         ),
       ),
     );
